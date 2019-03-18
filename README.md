@@ -1,7 +1,6 @@
 # Frontend Assessment
 
 Welcome, you've arrived to the Vulcan Search Frontend Assessment. 
-This means you passed the iron gates of our phone screening and are now staring at your second mission.
 This assessment is designed for you to showcase your ability to create a configurable table with React. 
 We will provide you with a guide, but creativity and imagination are yours to share. 
 Pay attention to notes left behind. 
