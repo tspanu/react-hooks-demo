@@ -36,7 +36,7 @@ query = 'chicken'
     ```javascript
     ['meat', 'protein (g)', 'calories (cal)', 'carbohydrates (g)', 'fat (g)']
     ```
-    **cows** will take in a 2-dimensional array for example: 
+    **rows** will take in a 2-dimensional array for example: 
     ```javascript
     [
       ['chicken breast', '25g', '200cal', '37g', '8g'],
