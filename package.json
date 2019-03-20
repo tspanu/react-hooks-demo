@@ -1,0 +1,26 @@
+{
+  "name": "frontend-assessment---spanu",
+  "version": "1.0.0",
+  "description": "Vulcan Search Frontend Assessment",
+  "main": "index.js",
+  "scripts": {
+    "dev": "parcel src/index.html"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://gitlab.com/VulcnAI/frontend-assessment---spanu.git"
+  },
+  "author": "Travis Spanu",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://gitlab.com/VulcnAI/frontend-assessment---spanu/issues"
+  },
+  "homepage": "https://gitlab.com/VulcnAI/frontend-assessment---spanu#readme",
+  "devDependencies": {
+    "parcel-bundler": "^1.12.2"
+  },
+  "dependencies": {
+    "react": "^16.8.4",
+    "react-dom": "^16.8.4"
+  }
+}
