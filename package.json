@@ -17,10 +17,16 @@
   },
   "homepage": "https://gitlab.com/VulcnAI/frontend-assessment---spanu#readme",
   "devDependencies": {
-    "parcel-bundler": "^1.12.2"
+    "parcel-bundler": "^1.12.2",
+    "sass": "^1.17.3"
   },
   "dependencies": {
+    "prop-types": "^15.7.2",
     "react": "^16.8.4",
+    "react-bootstrap-table-next": "^3.0.2",
+    "react-bootstrap-table2-editor": "^1.2.2",
+    "react-bootstrap-table2-toolkit": "^1.4.0",
+    "react-data-grid": "^6.1.0-0",
     "react-dom": "^16.8.4"
   }
 }

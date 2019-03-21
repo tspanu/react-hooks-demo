@@ -1,0 +1,10 @@
+.search {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: $space-medium;
+}
+
+.search-input{
+    border: none;
+    border-bottom: 2px solid $color-grey;
+}

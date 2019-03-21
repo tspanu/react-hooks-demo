@@ -1,0 +1,9 @@
+.header {
+    background: white;
+    display: flex;
+    justify-content: center;
+
+    &__logo>img {
+        height: 4rem;
+    }
+}
