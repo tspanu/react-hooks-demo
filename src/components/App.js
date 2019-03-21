@@ -23,8 +23,8 @@ const App = () => {
                 </div>
             </header>
             <div className="container">
-                <Search onChange={ filteredRows => setRows(filteredRows)} rows={data}/>
-                <Table columns={columns} rows={rows} />
+                <Search rows={data} onChange={filteredRows => setRows(filteredRows)} />
+                <Table columns={columns} rows={rows} onSort={sortedRows => setRows(sortedRows)} />
             </div>
         </Fragment>
     )

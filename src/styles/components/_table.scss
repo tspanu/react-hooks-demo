@@ -1,10 +1,16 @@
 .table {
     border-collapse:collapse;
-    width: 100%;
+    table-layout: fixed;
     text-align: left;
+    user-select: none;
+    width: 100%;
     
     & > * > tr {
         border-bottom: $border-grey;
+    }
+
+    & > thead {
+        cursor: pointer;
     }
 
     & > * > * > * {
