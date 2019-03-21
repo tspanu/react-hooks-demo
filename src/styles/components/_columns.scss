@@ -1,0 +1,10 @@
+.columns {
+  &__item {
+    display: flex;
+    align-items: center;
+
+    & > * {
+        margin-left: $space-medium;
+    }
+  }
+}

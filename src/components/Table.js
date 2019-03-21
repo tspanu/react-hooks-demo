@@ -5,7 +5,7 @@ const Table = ({ columns, rows, onSort }) => {
     const [orderAsc, setOrderAsc] = useState(true)
     const [sortByIndex, setSortByIndex] = useState(null)
 
-    const handleClick = (index) => {
+    const handleSort = (index) => {
 
         //Sorts new array from rows
         const sortedRows = [...rows].sort((a, b) => {
@@ -43,8 +43,12 @@ const Table = ({ columns, rows, onSort }) => {
             <thead>
                 <tr>
                     {columns.map((col, index) => (
-                        <th key={col} onClick={() => handleClick(index)}>{col}
-                            {sortByIndex === index && <span>{orderAsc ? '↑' : '↓'}</span>}
+                        <th key={col}>
+                            <div className="table__header">
+                                <div onClick={() => handleSort(index)}>{col}
+                                    {sortByIndex === index && <span>{orderAsc ? '↑' : '↓'}</span>}
+                                </div>
+                            </div>
                         </th>
                     ))}
                 </tr>

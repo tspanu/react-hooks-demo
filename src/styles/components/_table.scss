@@ -16,4 +16,8 @@
     & > * > * > * {
         padding: $space-medium;
     }
+
+    &__header{
+        display: flex;
+    }
 }
