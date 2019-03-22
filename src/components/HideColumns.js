@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-const Columns = ({ columns, rows, onCheck }) => {
+const ShowHide = ({ columns, rows, onCheck }) => {
 
     const [hidden, setHidden] = useState([])
 
@@ -20,10 +20,10 @@ const Columns = ({ columns, rows, onCheck }) => {
     }
 
     return (
-        <div className="columns">
+        <div className="show-hide">
             <label>Show</label>
             {columns.map((col, index) =>
-                <div key={index} className="columns__item">
+                <div key={index} className="show-hide__item">
                     <input type="checkbox" name="column" onClick={() => handleChecked(index)} defaultChecked />
                     <div>{col}</div>
                     <button>Edit</button>
@@ -35,5 +35,5 @@ const Columns = ({ columns, rows, onCheck }) => {
     )
 }
 
-export default Columns
+export default ShowHide
 

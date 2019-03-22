@@ -8,26 +8,14 @@ const seedRows = [
     ['beef stew', '20g', '250cal', '8g', '14g']
 ]
 
-const seedRowObjects = [
-    new Map([['meat', 'chicken'], ['protein (g)', '25g'], ['calories (cal)', '200cal'], ['carbohydrates (g)', '37g'], ['fat (g)', '8g']]),
-    new Map([['meat', 'beef'], ['protein (g)', '30g'], ['calories (cal)', '100cal'], ['carbohydrates (g)', '23g'], ['fat (g)', '15g']]),
-    new Map([['meat', 'pork'], ['protein (g)', '20g'], ['calories (cal)', '250cal'], ['carbohydrates (g)', '45g'], ['fat (g)', '20g']])
-]
-
 const seedColumns = ['meat', 'protein (g)', 'calories (cal)', 'carbohydrates (g)', 'fat (g)']
 
 const App = () => {
 
-    const [columns, setColumns] = useState(seedColumns)
+    //Setup state
     const [rows, setRows] = useState(seedRows)
-
-    const [visibleColumns, setVisibleColumns] = useState(columns)
-    const [visibleRows, setVisibleRows] = useState(rows)
-
-    const handleOnCheck = (visibleColumns, visibleRows) => {
-        setVisibleColumns(visibleColumns)
-        setVisibleRows(visibleRows)
-    }
+    const [columns, setColumns] = useState(seedColumns)
+    const [query, setQuery] = useState('')
 
     return (
         <Fragment>
@@ -37,8 +25,12 @@ const App = () => {
                 </div>
             </header>
             <div className="container">
-                <Search visibleRows={visibleRows} rows={rows} onChange={filteredRows => setVisibleRows(filteredRows)} />
-                <Table data={(rows, columns)} columns={visibleColumns} rows={visibleRows} onSort={sortedRows => setVisibleRows(sortedRows)} />
+                <Search query={query} handleQueryChange={e => setQuery(e.target.value)} />
+                <Table
+                    columns={columns}
+                    rows={rows}
+                    query={query}
+                />
             </div>
         </Fragment>
     )

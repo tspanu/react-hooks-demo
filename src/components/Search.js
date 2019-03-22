@@ -1,20 +1,10 @@
 import React from 'react'
 
-const Search = ({onChange, rows}) => {
-
-    const handleChange = e => {
-
-        //Filter each row if one of the values includes the query
-        const filteredRows = rows.filter(row => row.some(value => value.includes(e.target.value)))
-
-
-        //Update rows state in parent component
-        onChange(filteredRows)
-    }
+const Search = ({query, handleQueryChange}) => {
 
     return (
         <div className="search">
-            <input className="search-input" type="search" placeholder="Search" onChange={handleChange}></input>
+            <input className="search-input" type="search" value={query} placeholder="Search" onChange={handleQueryChange}></input>
         </div>
     )
 }

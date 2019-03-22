@@ -9,15 +9,19 @@
         border-bottom: $border-grey;
     }
 
-    & > thead {
-        cursor: pointer;
-    }
-
     & > * > * > * {
         padding: $space-medium;
     }
 
+    & > * > * > th:hover .button__icon{
+        display: inline-block;
+    }
+
     &__header{
         display: flex;
+
+        & > .header-title {
+            margin-right: $space-small;
+        }
     }
 }

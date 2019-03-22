@@ -1,16 +1,22 @@
 import React, { useState } from 'react'
 
-const Table = ({ columns, rows, onSort }) => {
 
+const Table = ({ columns, rows, query }) => {
+
+    //Setup state
+    const [sortedRows, setSortedRows] = useState(rows)
     const [orderAsc, setOrderAsc] = useState(true)
     const [sortByIndex, setSortByIndex] = useState(null)
 
+    //Filter the sorted rows if some value in a row includes the query
+    const visibleRows = sortedRows.filter(row => row.some(value => value.includes(query)))
+
     const handleSort = (index) => {
 
-        //Sorts new array from rows
-        const sortedRows = [...rows].sort((a, b) => {
+        //Sorts rows
+        const rowsSorted = [...rows].sort((a, b) => {
 
-            //Gets the value of the array for the selected column and parses for an Int
+            //Get the value of the array for the selected column and parse it for an Int
             //This makes it so inputs that have units are sorted correctly (Example: 20g < 25g)
             let first = parseInt(a[index])
             let second = parseInt(b[index])
@@ -21,7 +27,8 @@ const Table = ({ columns, rows, onSort }) => {
                 second = b[index]
             }
 
-            //If this is the second time the column was clicked or the order is already ASC then order DESC
+            //If this is the first time the column was clicked or the order is Desc, flip the OrderBy and return Asc
+            //Else flip the OrderBy and return Desc
             if (sortByIndex !== index || !orderAsc) {
                 setOrderAsc(true)
                 return first > second ? 1 : -1
@@ -34,8 +41,9 @@ const Table = ({ columns, rows, onSort }) => {
         //Set the sortByIndex so next time we click we know to order DESC
         setSortByIndex(index)
 
-        //Return the sortedRows to the callback function
-        onSort(sortedRows)
+        //Set sorted rows to re-render
+        setSortedRows(rowsSorted)
+        
     }
 
     return (
@@ -45,8 +53,8 @@ const Table = ({ columns, rows, onSort }) => {
                     {columns.map((col, index) => (
                         <th key={col}>
                             <div className="table__header">
-                                <div onClick={() => handleSort(index)}>{col}
-                                    {sortByIndex === index && <span>{orderAsc ? '↑' : '↓'}</span>}
+                                <div className="header-title" onClick={() => handleSort(index)}>
+                                    {col}{sortByIndex === index && <span>{orderAsc ? '↑' : '↓'}</span>}
                                 </div>
                             </div>
                         </th>
@@ -54,10 +62,10 @@ const Table = ({ columns, rows, onSort }) => {
                 </tr>
             </thead>
             <tbody>
-                {rows.map((row, index) => (
-                    <tr key={row}>
-                        {row.map((value) => (
-                            <td key={value}>{value}</td>
+                {visibleRows.map((row, index) => (
+                    <tr key={index}>
+                        {row.map((value, index)=> (
+                            <td key={index}>{value}</td>
                         ))}
                     </tr>
                 ))}
