@@ -1,0 +1,29 @@
+.column-filter {
+  position: relative;
+  user-select: none;
+
+  &__button {
+    padding: $space-small;
+    border: $border-grey;
+    border-radius: 5px;
+  }
+
+  &__list {
+    border: $border-grey;
+    border-radius: 5px;
+    position: absolute;
+    background-color: white;
+    white-space: nowrap;
+  }
+
+  &__item {
+    padding: $space-small;
+    display: flex;
+    align-items: center;
+
+    & > input {
+        margin-right: $space-small;
+    }
+  }
+  
+}

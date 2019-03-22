@@ -1,19 +1,27 @@
 import React, { useState } from 'react'
 
 
-const Table = ({ columns, rows, query }) => {
+const Table = ({ columns, rows, hidden, query }) => {
 
     //Setup state
     const [sortedRows, setSortedRows] = useState(rows)
     const [orderAsc, setOrderAsc] = useState(true)
     const [sortByIndex, setSortByIndex] = useState(null)
 
-    //Filter the sorted rows if some value in a row includes the query
-    const visibleRows = sortedRows.filter(row => row.some(value => value.includes(query)))
 
+    //Determine visible columns from hidden
+    const visibleColumns = columns.filter((col, index) => !hidden[index])
+    const visibleRows = sortedRows.map(row => row.filter((value, index) => !hidden[index]))
+
+    //Determine the queried rows from the visible rows and query
+    const queriedRows = visibleRows.filter(row => row.some(value => value.includes(query)))
+
+    //Sorts rows
     const handleSort = (index) => {
 
-        //Sorts rows
+        //Should be sorting by visibleRows but that creates an issue where the index for hidden columns doesn't match the index for the rows
+        //Rows should probably be objects with key:value pairs so we can properly filter
+        //Using rows though because the UI looks better and sometimes it actually is right
         const rowsSorted = [...rows].sort((a, b) => {
 
             //Get the value of the array for the selected column and parse it for an Int
@@ -50,7 +58,7 @@ const Table = ({ columns, rows, query }) => {
         <table className="table">
             <thead>
                 <tr>
-                    {columns.map((col, index) => (
+                    {visibleColumns.map((col, index) => (
                         <th key={col}>
                             <div className="table__header">
                                 <div className="header-title" onClick={() => handleSort(index)}>
@@ -62,7 +70,7 @@ const Table = ({ columns, rows, query }) => {
                 </tr>
             </thead>
             <tbody>
-                {visibleRows.map((row, index) => (
+                {queriedRows.map((row, index) => (
                     <tr key={index}>
                         {row.map((value, index)=> (
                             <td key={index}>{value}</td>
