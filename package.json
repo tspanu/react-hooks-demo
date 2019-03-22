@@ -21,7 +21,7 @@
     "sass": "^1.17.3"
   },
   "dependencies": {
-    "react": "^16.8.4",
-    "react-dom": "^16.8.4"
+    "react": "^16.8.5",
+    "react-dom": "^16.8.5"
   }
 }

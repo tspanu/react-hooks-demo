@@ -43,7 +43,7 @@ const App = () => {
         <Fragment>
             <header className="header">
                 <div className="header__logo">
-                    <img src="https://www.vulcansearch.com/wp-content/uploads/2019/03/vulcan-logo-dark@2x.png" alt="Vulcan Search"></img>
+                    <h1>React Hooks</h1>
                 </div>
             </header>
             <div className="container">
