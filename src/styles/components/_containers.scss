@@ -1,7 +1,12 @@
 .table-container {
-  width: 70%;
-  margin: $space-medium auto;
+  margin: 0 auto;
+  padding: $space-medium;
   position: relative;
+  width: 70%;
+
+  & > *:not(:last-child) {
+      margin-bottom: $space-medium;
+  }
 }
 
 .actions-container {

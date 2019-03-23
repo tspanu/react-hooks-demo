@@ -20,7 +20,6 @@ const App = () => {
     const [hidden, setHidden] = useState({})
 
     const handleHidden = (e) => {
-
         const index = e.target.name
         const checked = !e.target.checked
 
@@ -28,11 +27,21 @@ const App = () => {
             ...hidden,
             [index]: checked
         })
-
     }
+
     const handleAddColumn = (value) => {
-        setColumns(columns.concat('null'))
-        setRows(rows.map(row => row.concat('null')))
+        setColumns([...columns, ''])
+        setRows(rows.map(row => [...row, '']))
+    }
+
+    const handleEditColumn = (value, index) => {
+        const updatedColumns = columns.map((v, i) => {
+            if (i !== index) {
+                return v
+            }
+            return value
+        })
+        setColumns(updatedColumns)
     }
 
     const handleDeleteColumn = (index) => {
@@ -40,12 +49,33 @@ const App = () => {
         setRows(rows.map(row => row.filter((value, i) => i !== index)))
     }
 
+    const handleAddRow = () => {
+        setRows([...rows, new Array(columns.length).fill('')])
+    }
+
     const handleDeleteRow = (row) => {
         setRows(rows.filter(r => r.toString() !== row.toString()))
     }
 
-    const handleAddRow = () => {
-        setRows(rows.concat([new Array(columns.length).fill('null')]))
+    const handleEditCell = (value, index, array) => {
+        const updatedRows = rows.map(r => {
+            //Find the correct row to update
+            if (r.toString() !== array.toString()) {
+                return r
+            }
+
+            //Find the correct value to update
+            return (
+                r.map((v, i) => {
+                    if (i !== index) {
+                        return v
+                    }
+                    return value
+                })
+            )
+        })
+
+        setRows(updatedRows)
     }
 
     return (
@@ -71,8 +101,10 @@ const App = () => {
                     rows={rows}
                     hidden={hidden}
                     query={query}
+                    handleEditColumn={handleEditColumn}
                     handleDeleteColumn={handleDeleteColumn}
                     handleDeleteRow={handleDeleteRow}
+                    handleEditCell={handleEditCell}
                 />
             </div>
         </Fragment>

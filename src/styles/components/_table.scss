@@ -5,12 +5,13 @@
     user-select: none;
     width: 100%;
     
-    & > * > tr:not(:last-child) {
+    & > * > tr {
         border-bottom: $border-grey;
     }
 
     & > * > * > * {
         height: 5rem;
+        padding: $space-small;
     }
 
     & > * > * > th:hover .button__icon{

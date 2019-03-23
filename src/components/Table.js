@@ -1,13 +1,13 @@
 import React, { useState } from 'react'
 
-import { EditIcon, TrashIcon } from '../assets/icons'
+import { TrashIcon } from '../assets/icons'
 
 import Cell from './Cell'
+import ColumnHeader from './ColumnHeader'
 
 
-const Table = ({ columns, rows, hidden, query, handleDeleteColumn, handleDeleteRow }) => {
+const Table = ({ columns, rows, hidden, query, handleEditColumn, handleDeleteColumn, handleDeleteRow, handleEditCell }) => {
 
-    console.log(rows)
     //Fix auto sorting issue
 
     //Setup state
@@ -61,20 +61,16 @@ const Table = ({ columns, rows, hidden, query, handleDeleteColumn, handleDeleteR
             <thead>
                 <tr>
                     {visibleColumns.map((col, index) => (
-                        <th key={col}>
-                            <div className="table-cell" >
-                                <div className="header-title" onClick={() => handleSort(index)}>
-                                    {col}{sortByIndex === index && <span>{orderAsc ? '↑' : '↓'}</span>}
-                                </div>
-                                <div className="table-cell__right">
-                                    <button>
-                                        <EditIcon className="button__icon" />
-                                    </button>
-                                    <button onClick={() => handleDeleteColumn(index)}>
-                                        <TrashIcon className="button__icon" />
-                                    </button>
-                                </div>
-                            </div>
+                        <th key={index}>
+                            <ColumnHeader
+                                column={col}
+                                index={index}
+                                sortByIndex={sortByIndex}
+                                orderAsc={orderAsc}
+                                handleEditColumn={handleEditColumn}
+                                handleDeleteColumn={handleDeleteColumn}
+                                handleSort={handleSort}
+                            />
                         </th>
                     ))}
                 </tr>
@@ -82,19 +78,17 @@ const Table = ({ columns, rows, hidden, query, handleDeleteColumn, handleDeleteR
             <tbody>
                 {queriedRows.map((row, index) => (
                     <tr key={index}>
-                        {row.map((value, index, arr) => {
-                            if (index === arr.length - 1) {
-                                return (
-                                    <td key={index} className="table-cell">
-                                        <Cell value={value} />
-                                        <button onClick={() => handleDeleteRow(arr)}>
-                                            <TrashIcon className="button__icon" />
-                                        </button>
-                                    </td>
-                                )
-                            }
-                            return <td key={index} ><Cell value={value} /></td>
-                        })}
+                        {row.map((value, index, array) =>
+                            <td key={index} >
+                                <Cell
+                                    value={value}
+                                    index={index}
+                                    array={array}
+                                    handleEditCell={handleEditCell}
+                                    handleDeleteRow={handleDeleteRow}
+                                />
+                            </td>
+                        )}
                     </tr>
                 ))}
             </tbody>
