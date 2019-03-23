@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from "react"
 
 import { TrashIcon } from '../assets/icons'
 
-const Cell = ({ value, index, array, handleEditCell, handleDeleteRow }) => {
+const Cell = ({ value, index, array, hidden, handleEditCell, handleDeleteRow }) => {
 
     const [edit, setEdit] = useState(false)
 
@@ -35,10 +35,12 @@ const Cell = ({ value, index, array, handleEditCell, handleDeleteRow }) => {
     return (
         <div className="table-cell" ref={node} onClick={() => setEdit(true)}>
             {edit || value === '' ? <input className="text-input" type="text" defaultValue={value} onKeyDown={handleEnter}></input> : value}
-            {index === array.length - 1 &&
-                <button onClick={() => handleDeleteRow(array)}>
-                    <TrashIcon className="button__icon" />
-                </button>
+            {hidden.length === 0 && index === array.length - 1 &&
+                <div className="table-cell__icons">
+                    <button onClick={() => handleDeleteRow(array)}>
+                        <TrashIcon className="button__icon" />
+                    </button>
+                </div>
             }
         </div>
     )

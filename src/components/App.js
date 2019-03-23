@@ -17,24 +17,28 @@ const App = () => {
     const [rows, setRows] = useState(seedRows)
     const [columns, setColumns] = useState(seedColumns)
     const [query, setQuery] = useState('')
-    const [hidden, setHidden] = useState({})
+    const [hidden, setHidden] = useState([])
 
-    const handleHidden = (e) => {
-        const index = e.target.name
-        const checked = !e.target.checked
+    const handleHidden = (e, index) => {
 
-        setHidden({
-            ...hidden,
-            [index]: checked
-        })
+        const checked = e.target.checked
+
+        //If box is checked remove else add to hidden array
+        if (checked) {
+            setHidden(hidden.filter((i) => i !== index))
+        } else {
+            setHidden([...hidden, index])
+        }
     }
 
     const handleAddColumn = (value) => {
+        //Add and empty string to column and rows. Null creates issues when sorting.
         setColumns([...columns, ''])
         setRows(rows.map(row => [...row, '']))
     }
 
     const handleEditColumn = (value, index) => {
+        //Find the correct column and update the value
         const updatedColumns = columns.map((v, i) => {
             if (i !== index) {
                 return v
@@ -50,10 +54,12 @@ const App = () => {
     }
 
     const handleAddRow = () => {
+        //Create a row of empty strings for the given columns
         setRows([...rows, new Array(columns.length).fill('')])
     }
 
     const handleDeleteRow = (row) => {
+        //Check if two arrays are equal to each other
         setRows(rows.filter(r => r.toString() !== row.toString()))
     }
 
@@ -88,8 +94,12 @@ const App = () => {
             <div className="table-container">
                 <div className="actions-container">
                     <div className="row-container">
-                        <button className="button button__primary" onClick={handleAddColumn}>Add Column</button>
-                        <button className="button button__primary" onClick={handleAddRow}>Add Row</button>
+                        {hidden.length === 0 &&
+                            <Fragment>
+                                <button className="button button__primary" onClick={handleAddColumn}>Add Column</button>
+                                <button className="button button__primary" onClick={handleAddRow}>Add Row</button>
+                            </Fragment>
+                        }
                     </div>
                     <div className="row-container">
                         <ColumnFilter columns={columns} hidden={hidden} handleHidden={handleHidden} handleDeleteColumn={handleDeleteColumn} />

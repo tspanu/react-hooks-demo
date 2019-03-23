@@ -2,12 +2,12 @@ import React, { useState } from 'react'
 
 import { CancelIcon, EditIcon, TrashIcon } from '../assets/icons'
 
-const ColumnHeader = ({ column, index, sortByIndex, orderAsc, handleEditColumn, handleDeleteColumn, handleSort }) => {
+const ColumnHeader = ({ column, index, hidden, sortByIndex, orderAsc, handleEditColumn, handleDeleteColumn, handleSort }) => {
 
     const [edit, setEdit] = useState(false)
 
     const handleEnter = (e) => {
-        if (e.key === 'Enter'){
+        if (e.key === 'Enter') {
             handleEditColumn(e.target.value, index)
             setEdit(false)
         }
@@ -22,18 +22,20 @@ const ColumnHeader = ({ column, index, sortByIndex, orderAsc, handleEditColumn, 
                     {column}{sortByIndex === index && <span>{orderAsc ? '↑' : '↓'}</span>}
                 </div>
             }
-            <div className="table-cell__right">
-                <button onClick={() => setEdit(!edit)}>
-                    {edit ?
-                        <CancelIcon className="button__icon" />
-                        :
-                        <EditIcon className="button__icon" />
-                    }
-                </button>
-                <button onClick={() => handleDeleteColumn(index)}>
-                    <TrashIcon className="button__icon" />
-                </button>
-            </div>
+            {hidden.length === 0 &&
+                <div className="table-cell__icons">
+                    <button onClick={() => setEdit(!edit)}>
+                        {edit ?
+                            <CancelIcon className="button__icon" />
+                            :
+                            <EditIcon className="button__icon" />
+                        }
+                    </button>
+                    <button onClick={() => handleDeleteColumn(index)}>
+                        <TrashIcon className="button__icon" />
+                    </button>
+                </div>
+            }
         </div>
     )
 }

@@ -30,7 +30,7 @@ const ColumnFilter = ({ columns, hidden, handleHidden }) => {
                 <div className="column-filter__list">
                     {columns.map((col, index) =>
                         <div key={index} className="column-filter__item">
-                            <input type="checkbox" name={index} defaultChecked={!hidden[index]} onChange={handleHidden} />
+                            <input type="checkbox" defaultChecked={!hidden.includes(index)} onChange={(e) => handleHidden(e, index)} />
                             <div>{col}</div>
                         </div>
                     )}
