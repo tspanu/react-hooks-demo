@@ -1,7 +1,6 @@
 .column-filter {
   position: relative;
   user-select: none;
-  margin-right: $space-medium;
 
   &__list {
     border: $border-grey;
@@ -9,6 +8,7 @@
     position: absolute;
     background-color: white;
     white-space: nowrap;
+    z-index: 10;
   }
 
   &__item {

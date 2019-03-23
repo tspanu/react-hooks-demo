@@ -1,20 +1,20 @@
-.table-container{
-    width:70%;
-    margin: $space-medium auto;
+.table-container {
+  width: 70%;
+  margin: $space-medium auto;
+  position: relative;
 }
 
-.filters-container{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+.actions-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 
-    &__left {
-        display: flex;
-        align-items: center;
-    }
+  & .button {
+      margin-right: $space-medium;
+  }
 }
 
-.add-item-container{
-    display: flex;
-    align-items: center;
+.row-container {
+  display: flex;
+  align-items: center;
 }

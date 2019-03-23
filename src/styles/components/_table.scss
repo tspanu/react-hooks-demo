@@ -5,12 +5,12 @@
     user-select: none;
     width: 100%;
     
-    & > * > tr {
+    & > * > tr:not(:last-child) {
         border-bottom: $border-grey;
     }
 
     & > * > * > * {
-        padding: $space-medium;
+        height: 5rem;
     }
 
     & > * > * > th:hover .button__icon{
@@ -21,8 +21,14 @@
         display: inline-block;
     }
 
-    &__cell {
-        display: flex;
-        justify-content: space-between;
+}
+
+.table-cell {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    &__right{
+        font-size: 0;
     }
 }

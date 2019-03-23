@@ -2,7 +2,6 @@ import React, { Fragment, useState } from 'react'
 import Table from './Table'
 import Search from './Search'
 import ColumnFilter from './ColumnFilter'
-import AddItem from './AddItem'
 
 const seedRows = [
     ['chicken breast', '25g', '200cal', '37g', '8g'],
@@ -10,21 +9,13 @@ const seedRows = [
     ['beef stew', '20g', '250cal', '8g', '14g']
 ]
 
-const seedColumns = [
-    { header: 'meat', hidden: false },
-    { header: 'protien', hidden: false },
-    { header: 'calories (cal)', hidden: false },
-    { header: 'carbohydrates (g)', hidden: false },
-    { header: 'fat (g)', hidden: false },
-]
-
-const seedArray = ['meat', 'protein (g)', 'calories (cal)', 'carbohydrates (g)', 'fat (g)']
+const seedColumns = ['meat', 'protein (g)', 'calories (cal)', 'carbs (g)', 'fat (g)']
 
 const App = () => {
 
     //Setup state
     const [rows, setRows] = useState(seedRows)
-    const [columns, setColumns] = useState(seedArray)
+    const [columns, setColumns] = useState(seedColumns)
     const [query, setQuery] = useState('')
     const [hidden, setHidden] = useState({})
 
@@ -39,9 +30,8 @@ const App = () => {
         })
 
     }
-    const handleAdd = (value) => {
-        console.log(value)
-        setColumns(columns.concat(value))
+    const handleAddColumn = (value) => {
+        setColumns(columns.concat('null'))
         setRows(rows.map(row => row.concat('null')))
     }
 
@@ -54,6 +44,10 @@ const App = () => {
         setRows(rows.filter(r => r.toString() !== row.toString()))
     }
 
+    const handleAddRow = () => {
+        setRows(rows.concat([new Array(columns.length).fill('null')]))
+    }
+
     return (
         <Fragment>
             <header className="header">
@@ -62,12 +56,15 @@ const App = () => {
                 </div>
             </header>
             <div className="table-container">
-                <div className="filters-container">
-                    <div className="filters-container__left">
-                        <ColumnFilter columns={columns} hidden={hidden} handleHidden={handleHidden} handleDeleteColumn={handleDeleteColumn} />
-                        <AddItem handleAdd={handleAdd} />
+                <div className="actions-container">
+                    <div className="row-container">
+                        <button className="button button__primary" onClick={handleAddColumn}>Add Column</button>
+                        <button className="button button__primary" onClick={handleAddRow}>Add Row</button>
                     </div>
-                    <Search query={query} handleQueryChange={e => setQuery(e.target.value)} />
+                    <div className="row-container">
+                        <ColumnFilter columns={columns} hidden={hidden} handleHidden={handleHidden} handleDeleteColumn={handleDeleteColumn} />
+                        <Search query={query} handleQueryChange={e => setQuery(e.target.value)} />
+                    </div>
                 </div>
                 <Table
                     columns={columns}

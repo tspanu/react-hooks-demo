@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
 
-const AddItem = ({ handleAdd }) => {
+const AddItem = ({ handleAddColumn }) => {
 
     const [value, setValue] = useState('')
 
     const handleSubmit = (e) => {
         if (value.length > 0) {
-            handleAdd(value)
+            handleAddColumn(value)
         }
         setValue('')
         e.preventDefault()
@@ -18,7 +18,6 @@ const AddItem = ({ handleAdd }) => {
             {value &&
                 <button className="button button__primary">Add Column</button>
             }
-
         </form>
     )
 }

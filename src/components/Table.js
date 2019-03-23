@@ -1,9 +1,14 @@
 import React, { useState } from 'react'
 
-import { TrashIcon } from '../assets/icons'
+import { EditIcon, TrashIcon } from '../assets/icons'
+
+import Cell from './Cell'
 
 
 const Table = ({ columns, rows, hidden, query, handleDeleteColumn, handleDeleteRow }) => {
+
+    console.log(rows)
+    //Fix auto sorting issue
 
     //Setup state
     const [orderAsc, setOrderAsc] = useState(true)
@@ -57,13 +62,18 @@ const Table = ({ columns, rows, hidden, query, handleDeleteColumn, handleDeleteR
                 <tr>
                     {visibleColumns.map((col, index) => (
                         <th key={col}>
-                            <div className="table__cell" >
+                            <div className="table-cell" >
                                 <div className="header-title" onClick={() => handleSort(index)}>
                                     {col}{sortByIndex === index && <span>{orderAsc ? '↑' : '↓'}</span>}
                                 </div>
-                                <button onClick={() => handleDeleteColumn(index)}>
-                                    <TrashIcon className="button__icon" />
-                                </button>
+                                <div className="table-cell__right">
+                                    <button>
+                                        <EditIcon className="button__icon" />
+                                    </button>
+                                    <button onClick={() => handleDeleteColumn(index)}>
+                                        <TrashIcon className="button__icon" />
+                                    </button>
+                                </div>
                             </div>
                         </th>
                     ))}
@@ -75,15 +85,15 @@ const Table = ({ columns, rows, hidden, query, handleDeleteColumn, handleDeleteR
                         {row.map((value, index, arr) => {
                             if (index === arr.length - 1) {
                                 return (
-                                    <td key={index} className="table__cell">
-                                        {value}
+                                    <td key={index} className="table-cell">
+                                        <Cell value={value} />
                                         <button onClick={() => handleDeleteRow(arr)}>
                                             <TrashIcon className="button__icon" />
                                         </button>
                                     </td>
                                 )
                             }
-                            return <td key={index}>{value}</td>
+                            return <td key={index} ><Cell value={value} /></td>
                         })}
                     </tr>
                 ))}

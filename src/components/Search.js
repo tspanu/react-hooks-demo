@@ -3,7 +3,7 @@ import React from 'react'
 const Search = ({query, handleQueryChange}) => {
 
     return (
-        <div className="search">
+        <div>
             <input className="search-input" type="search" value={query} placeholder="Search" onChange={handleQueryChange}></input>
         </div>
     )
