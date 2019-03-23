@@ -2,6 +2,7 @@ import React, { Fragment, useState } from 'react'
 import Table from './Table'
 import Search from './Search'
 import ColumnFilter from './ColumnFilter'
+import AddItem from './AddItem'
 
 const seedRows = [
     ['chicken breast', '25g', '200cal', '37g', '8g'],
@@ -38,6 +39,20 @@ const App = () => {
         })
 
     }
+    const handleAdd = (value) => {
+        console.log(value)
+        setColumns(columns.concat(value))
+        setRows(rows.map(row => row.concat('null')))
+    }
+
+    const handleDeleteColumn = (index) => {
+        setColumns(columns.filter((col, i) => i !== index))
+        setRows(rows.map(row => row.filter((value, i) => i !== index)))
+    }
+
+    const handleDeleteRow = (row) => {
+        setRows(rows.filter(r => r.toString() !== row.toString()))
+    }
 
     return (
         <Fragment>
@@ -46,9 +61,12 @@ const App = () => {
                     <h1>React Hooks</h1>
                 </div>
             </header>
-            <div className="container">
-                <div className="filters">
-                    <ColumnFilter columns={columns} hidden={hidden} handleHidden={handleHidden} />
+            <div className="table-container">
+                <div className="filters-container">
+                    <div className="filters-container__left">
+                        <ColumnFilter columns={columns} hidden={hidden} handleHidden={handleHidden} handleDeleteColumn={handleDeleteColumn} />
+                        <AddItem handleAdd={handleAdd} />
+                    </div>
                     <Search query={query} handleQueryChange={e => setQuery(e.target.value)} />
                 </div>
                 <Table
@@ -56,6 +74,8 @@ const App = () => {
                     rows={rows}
                     hidden={hidden}
                     query={query}
+                    handleDeleteColumn={handleDeleteColumn}
+                    handleDeleteRow={handleDeleteRow}
                 />
             </div>
         </Fragment>

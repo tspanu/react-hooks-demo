@@ -1,12 +1,7 @@
 .column-filter {
   position: relative;
   user-select: none;
-
-  &__button {
-    padding: $space-small;
-    border: $border-grey;
-    border-radius: 5px;
-  }
+  margin-right: $space-medium;
 
   &__list {
     border: $border-grey;

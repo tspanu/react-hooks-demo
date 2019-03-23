@@ -17,11 +17,12 @@
         display: inline-block;
     }
 
-    &__header{
-        display: flex;
+    & > tbody > tr:hover .button__icon{
+        display: inline-block;
+    }
 
-        & > .header-title {
-            margin-right: $space-small;
-        }
+    &__cell {
+        display: flex;
+        justify-content: space-between;
     }
 }

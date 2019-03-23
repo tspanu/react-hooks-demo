@@ -25,7 +25,7 @@ const ColumnFilter = ({ columns, hidden, handleHidden }) => {
 
     return (
         <div ref={node} className="column-filter">
-            <div className="column-filter__button" onClick={() => setOpen(!open)}>Show/Hide</div>
+            <button className="button button__secondary" onClick={() => setOpen(!open)}>Show/Hide</button>
             {open && (
                 <div className="column-filter__list">
                     {columns.map((col, index) =>

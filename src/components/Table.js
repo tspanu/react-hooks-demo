@@ -1,7 +1,9 @@
 import React, { useState } from 'react'
 
+import { TrashIcon } from '../assets/icons'
 
-const Table = ({ columns, rows, hidden, query }) => {
+
+const Table = ({ columns, rows, hidden, query, handleDeleteColumn, handleDeleteRow }) => {
 
     //Setup state
     const [orderAsc, setOrderAsc] = useState(true)
@@ -27,7 +29,7 @@ const Table = ({ columns, rows, hidden, query }) => {
         }
 
         //If orderAsc is true, sort asc. Else sort desc
-        if (orderAsc)  {
+        if (orderAsc) {
             return first > second ? 1 : -1
         } else {
             return first < second ? 1 : -1
@@ -42,7 +44,7 @@ const Table = ({ columns, rows, hidden, query }) => {
     const handleSort = (index) => {
         setSortByIndex(index)
 
-        if (sortByIndex !== index){
+        if (sortByIndex !== index) {
             setOrderAsc(true)
         } else {
             setOrderAsc(!orderAsc)
@@ -55,10 +57,13 @@ const Table = ({ columns, rows, hidden, query }) => {
                 <tr>
                     {visibleColumns.map((col, index) => (
                         <th key={col}>
-                            <div className="table__header">
+                            <div className="table__cell" >
                                 <div className="header-title" onClick={() => handleSort(index)}>
                                     {col}{sortByIndex === index && <span>{orderAsc ? '↑' : '↓'}</span>}
                                 </div>
+                                <button onClick={() => handleDeleteColumn(index)}>
+                                    <TrashIcon className="button__icon" />
+                                </button>
                             </div>
                         </th>
                     ))}
@@ -67,9 +72,19 @@ const Table = ({ columns, rows, hidden, query }) => {
             <tbody>
                 {queriedRows.map((row, index) => (
                     <tr key={index}>
-                        {row.map((value, index) => (
-                            <td key={index}>{value}</td>
-                        ))}
+                        {row.map((value, index, arr) => {
+                            if (index === arr.length - 1) {
+                                return (
+                                    <td key={index} className="table__cell">
+                                        {value}
+                                        <button onClick={() => handleDeleteRow(arr)}>
+                                            <TrashIcon className="button__icon" />
+                                        </button>
+                                    </td>
+                                )
+                            }
+                            return <td key={index}>{value}</td>
+                        })}
                     </tr>
                 ))}
             </tbody>
